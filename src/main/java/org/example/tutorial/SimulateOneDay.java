@@ -38,6 +38,12 @@ public class SimulateOneDay {
         }
     }
     public void createDayCustomers(String dayFile) throws IOException {
+        /*Cette méthode lit les données des clients à partir d'un fichier (dont le chemin est passé en argument)
+         et crée des objets Customer en fonction de ces données. Les clients sont ensuite planifiés pour arriver
+         à leurs heures d'arrivée respectives dans la simulation. Les attributs des  clients
+          (comme le temps d'attente) sont également calculés à partir des informations fournies
+           dans le fichier.
+        * */
         BufferedReader br=new BufferedReader(new FileReader(dayFile));
         String ligne = null;
         System.out.println(dayFile);
@@ -73,6 +79,10 @@ public class SimulateOneDay {
 
     }
     public void createDataset() throws IOException{
+        /* Cette méthode lit les données des clients à partir d'un fichier (dont le chemin est passé en argument) et
+        crée des objets Customer en fonction de ces données. Les clients sont ensuite planifiés pour arriver à leurs
+         heures d'arrivée respectives dans la simulation. Les attributs des clients (comme le temps d'attente)
+          sont également calculés à partir des informations fournies dans le fichier.*/
         String x=null;
         String y=null;
         String path = "src/main/java/projects/";
@@ -94,6 +104,9 @@ public class SimulateOneDay {
         }
     }
     public void simulateOneDay( String file) throws IOException{
+        /* Cette méthode initialise une simulation pour une journée en appelant Sim.init(),
+         crée les clients à partir des données du fichier (appelant la méthode createDayCustomers(file)),
+        et planifie la fin de la simulation après 12 heures (43200 secondes).*/
         Sim.init();
         createDayCustomers(file);
         new EndOfSim().schedule (43200);
@@ -102,6 +115,8 @@ public class SimulateOneDay {
 
 
     public static void getSizeQueue(Customer customer) {
+        /* Cette méthode calcule la longueur de la file d'attente pour
+        chaque type de service et met à jour les attributs du client correspondant (lf1, lf2, ..., lf8).*/
         customer.lf1 = tab[0].size();
         customer.lf2 = tab[1].size();
         customer.lf3 = tab[2].size();
@@ -112,6 +127,9 @@ public class SimulateOneDay {
         customer.lf8 = tab[7].size();
     }
     public static int getIndice(int type){
+        /*Cette méthode prend en paramètre un type de client et
+         renvoie l'indice correspondant dans les tableaux (tab et tab2).
+        * */
         if(type==30175)
             return 0;
         else if(type==30560)
