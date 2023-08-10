@@ -6,7 +6,7 @@ class Customer{
     double endServiceTime;
     double waitingTime;
     int type;
-    int lf1,lf2, lf3, lf4, lf5,lf6,lf7,lf8;
-    int numberAgents;
+    int srv1,srv2, srv3, srv4, srv5,srv6,srv7,srv8;
+    int  nbServeurs;
     double LES;
 }

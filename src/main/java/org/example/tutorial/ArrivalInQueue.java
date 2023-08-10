@@ -3,27 +3,27 @@ package org.example.tutorial;
 import umontreal.ssj.simevents.Event;
 import umontreal.ssj.simevents.Sim;
 
-import static org.example.tutorial.SimulateOneDay.getIndice;
+import static org.example.tutorial.SimulateOneDay.getType;
 import static org.example.tutorial.SimulateOneDay.tab;
 
-public class Arrival extends Event {
+public class ArrivalInQueue extends Event {
     Customer customer;
-    public Arrival(Customer customer){
+    public ArrivalInQueue(Customer customer){
         this.customer=customer;
     }
     @Override
     public void actions() {
 
             SimulateOneDay.getSizeQueue(customer);
-            if(getIndice(customer.type) != -1)
-                customer.LES=SimulateOneDay.tab2[getIndice(customer.type)];
-            customer.numberAgents=SimulateOneDay.lservice.size();
+            if(getType(customer.type) != -1)
+                customer.LES=SimulateOneDay.tab2[getType(customer.type)];
+            customer.nbServeurs=SimulateOneDay.lservice.size();
             if(customer.beginServiceTime<=customer.arrivalTime+3)
                 new EnterInService(customer).schedule(0.0);
             else
             {
-                if(getIndice(customer.type) != -1)
-                    tab[getIndice(customer.type)].add(customer);
+                if(getType(customer.type) != -1)
+                    tab[getType(customer.type)].add(customer);
                 if(customer.beginServiceTime==-1)
                     new Abandon(customer).schedule(customer.endServiceTime- Sim.time());
                 else

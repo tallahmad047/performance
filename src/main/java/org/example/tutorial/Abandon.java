@@ -10,8 +10,8 @@ public class Abandon extends Event {
     }
     @Override
     public void actions() {
-        if(tab[getIndice(customer.type)].contains(customer))
-            tab[getIndice(customer.type)].remove(customer);
+        if(tab[getType(customer.type)].contains(customer))
+            tab[getType(customer.type)].remove(customer);
 
     }
 }

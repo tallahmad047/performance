@@ -23,16 +23,20 @@ public class SimulateOneDay {
     x = (T,qT , `,t,s,LES)*/
 
     static LinkedList<Customer>[] tab =new LinkedList[8];
+
     //la liste des client en service
     static LinkedList<Customer> lservice=new LinkedList<Customer>();
+
     //Contient les LES des 8  types de service
     static double[] tab2 =new double[8];
+
     //la liste des clients qui ont été déja servis
-    static ArrayList<Customer> lEndServiceCust=new ArrayList<Customer>();
+    static ArrayList<Customer> customerServed=new ArrayList<Customer>();
 
     public SimulateOneDay() {
         for(int i=0;i<8;i++)
         {
+            //liste des clients
             tab[i]=new LinkedList<Customer>();
             tab2[i]=0.0;
         }
@@ -73,7 +77,7 @@ public class SimulateOneDay {
 
             cust.endServiceTime=endServiceTime;
             if(cust.arrivalTime >= 0)
-                new Arrival(cust).schedule(cust.arrivalTime - Sim.time());
+                new ArrivalInQueue(cust).schedule(cust.arrivalTime - Sim.time());
         }
 
 
@@ -87,13 +91,13 @@ public class SimulateOneDay {
         String y=null;
         String path = "src/main/java/projects/";
         BufferedWriter br=new BufferedWriter(new FileWriter(path+"datasets.csv"));
-        String entete="Type,"+"ArrivalTime,"+"LES,"+"numberAgents,"+"Lf1,"
-                +"Lf2,"+"Lf3,"+"Lf4,"+"Lf5,"+"Lf6,"+"Lf7,"+"Lf8,"+"WaitingTime\n";
+        String entete="Type,"+"ArrivalTime,"+"LES,"+"numberAgents,"+"srv1,"
+                +"srv2,"+"srv3,"+"srv4,"+"srv5,"+"srv6,"+"srv7,"+"srv8,"+"WaitingTime\n";
         br.write(entete);
-        for(Customer c:lEndServiceCust)
+        for(Customer c:customerServed)
         {  y=""+c.waitingTime;
-            x=c.type+","+c.arrivalTime+","+c.LES+","+c.numberAgents+","+c.lf1+","+c.lf2+","+c.lf3+","
-                    +c.lf4+","+c.lf5+"," +c.lf6+","+c.lf7+","+c.lf8;
+            x=c.type+","+c.arrivalTime+","+c.LES+","+c.nbServeurs+","+c.srv1+","+c.srv2+","+c.srv3+","
+                    +c.srv4+","+c.srv5+"," +c.srv6+","+c.srv7+","+c.srv8;
             br.write(x+","+y+"\n");
         }
         br.close();
@@ -116,17 +120,17 @@ public class SimulateOneDay {
 
     public static void getSizeQueue(Customer customer) {
         /* Cette méthode calcule la longueur de la file d'attente pour
-        chaque type de service et met à jour les attributs du client correspondant (lf1, lf2, ..., lf8).*/
-        customer.lf1 = tab[0].size();
-        customer.lf2 = tab[1].size();
-        customer.lf3 = tab[2].size();
-        customer.lf4 = tab[3].size();
-        customer.lf5 = tab[4].size();
-        customer.lf6 = tab[5].size();
-        customer.lf7 = tab[6].size();
-        customer.lf8 = tab[7].size();
+        chaque type de service et met à jour les attributs du client correspondant (srv1, srv2, ..., srv8).*/
+        customer.srv1 = tab[0].size();
+        customer.srv2 = tab[1].size();
+        customer.srv3 = tab[2].size();
+        customer.srv4 = tab[3].size();
+        customer.srv5 = tab[4].size();
+        customer.srv6 = tab[5].size();
+        customer.srv7 = tab[6].size();
+        customer.srv8 = tab[7].size();
     }
-    public static int getIndice(int type){
+    public static int getType(int type){
         /*Cette méthode prend en paramètre un type de client et
          renvoie l'indice correspondant dans les tableaux (tab et tab2).
         * */

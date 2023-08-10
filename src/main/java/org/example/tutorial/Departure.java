@@ -13,7 +13,7 @@ public class Departure  extends Event {
     public void actions() {
         if(lservice.contains(customer))
             lservice.remove(customer);
-        SimulateOneDay.lEndServiceCust.add(customer);
+        SimulateOneDay.customerServed.add(customer);
 
     }
 }
